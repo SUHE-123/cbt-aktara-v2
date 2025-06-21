@@ -28,21 +28,5 @@
 </footer>
 
 <script src="<?= base_url('assets/js/bootstrap.bundle.min.js'); ?>"></script>
-
-<!-- Toggle sidebar dan footer -->
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const toggleBtn = document.getElementById('toggleSidebar');
-    const sidebar = document.querySelector('.sidebar');
-    const mainContent = document.querySelector('.main-content');
-    const footer = document.getElementById('mainFooter');
-
-    toggleBtn?.addEventListener('click', () => {
-      sidebar?.classList.toggle('hidden');
-      mainContent?.classList.toggle('full');
-      footer?.classList.toggle('full-footer');
-    });
-  });
-</script>
 </body>
 </html>

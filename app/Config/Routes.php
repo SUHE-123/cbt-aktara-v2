@@ -27,5 +27,16 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function($rout
     $routes->post('profil/update', 'Profil::update');
 });
 
+// Routes untuk Sekolah (di dalam grup 'admin')
+$routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function($routes) {
+    $routes->get('sekolah', 'Sekolah::index'); // Tampilkan daftar sekolah
+    $routes->get('sekolah/create', 'Sekolah::create'); // Form tambah
+    $routes->post('sekolah/store', 'Sekolah::store'); // Proses simpan
+
+    $routes->get('sekolah/edit/(:num)', 'Sekolah::edit/$1'); // Form edit
+    $routes->post('sekolah/update/(:num)', 'Sekolah::update/$1'); // Proses update
+
+    $routes->get('sekolah/delete/(:num)', 'Sekolah::delete/$1'); // Proses hapus
+});
 
     
