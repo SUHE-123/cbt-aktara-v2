@@ -56,3 +56,12 @@ $routes->group('admin', function($routes) {
     $routes->post('guru/delete/(:num)', 'Admin\Guru::delete/$1');
 });
 
+// Mata Pelajaran
+$routes->group('admin/mapel', ['namespace' => 'App\Controllers\Admin'], function($routes) {
+    $routes->get('/', 'Mapel::index'); 
+    $routes->get('create', 'Mapel::create'); 
+    $routes->post('store', 'Mapel::store'); 
+    $routes->get('edit/(:num)', 'Mapel::edit/$1'); 
+    $routes->post('update/(:num)', 'Mapel::update/$1'); 
+    $routes->post('delete/(:num)', 'Mapel::delete/$1'); 
+});

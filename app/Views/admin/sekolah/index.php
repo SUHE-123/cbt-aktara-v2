@@ -1,19 +1,49 @@
 <?= $this->include('layout/header') ?>
 
-<div class="d-flex" style="min-height: 100vh; overflow-x: hidden;">
+<style>
+  .sekolah-index-wrapper {
+    position: relative;
+    background: url('<?= base_url('assets/img/joggun4.jpg') ?>') no-repeat center center;
+    background-size: cover;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sekolah-index-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    z-index: 1;
+  }
+
+  .sekolah-index-content {
+    position: relative;
+    z-index: 2;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    margin: 2rem;
+    border-radius: 8px;
+  }
+</style>
+
+<div class="d-flex sekolah-index-wrapper">
   <!-- Sidebar -->
   <?= $this->include('layout/sidebar') ?>
+
+  <!-- Overlay Blur -->
+  <div class="sekolah-index-overlay"></div>
 
   <!-- Main Content -->
   <div class="main-content flex-grow-1 d-flex flex-column">
     
-    <!-- Header Khusus Halaman -->
-    <div class="navbar-dashboard d-flex justify-content-between align-items-center px-4 py-3 bg-dark text-white shadow-sm">
-    <button class="btn btn-outline-light me-3" id="toggleSidebar">
+    <!-- Navbar -->
+    <div class="navbar-dashboard d-flex justify-content-between align-items-center px-4 py-3 bg-dark text-white shadow-sm z-3">
+      <button class="btn btn-outline-light me-3" id="toggleSidebar">
         <i class="bi bi-list"></i>
       </button>
       <h4 class="mb-0"><strong>Data Sekolah</strong></h4>
-      
       <div>
         <?= esc(session('nama_lengkap')) ?> |
         <a href="<?= base_url('logout') ?>" class="text-white ms-2">Logout</a>
@@ -21,11 +51,11 @@
     </div>
 
     <!-- Konten -->
-    
-    <div class="flex-grow-1 px-4 py-3">
-    <a href="<?= base_url('/admin/sekolah/create') ?>" class="btn btn-primary">
+    <div class="flex-grow-1 sekolah-index-content shadow">
+      <a href="<?= base_url('/admin/sekolah/create') ?>" class="btn btn-primary mb-3">
         <i class="bi bi-plus-lg"></i> Tambah Sekolah
       </a>
+
       <?php if (session()->getFlashdata('success')): ?>
         <div class="alert alert-success">
           <?= session()->getFlashdata('success') ?>
@@ -71,9 +101,6 @@
         </table>
       </div>
     </div>
-
-    <!-- Footer -->
-
   </div>
 </div>
 
@@ -88,3 +115,4 @@
     $('#sekolahTable').DataTable();
   });
 </script>
+
