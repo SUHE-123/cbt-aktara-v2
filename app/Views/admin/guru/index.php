@@ -1,19 +1,46 @@
 <?= $this->include('layout/header') ?>
 
-<div class="d-flex" style="min-height: 100vh; overflow-x: hidden;">
+<style>
+  .guru-wrapper {
+    position: relative;
+    background: url('<?= base_url('assets/img/joggun4.jpg') ?>') no-repeat center center;
+    background-size: cover;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .guru-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    z-index: 1;
+  }
+
+  .guru-container {
+    position: relative;
+    z-index: 2;
+    padding: 2rem;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+</style>
+
+<div class="d-flex guru-wrapper">
   <!-- Sidebar -->
   <?= $this->include('layout/sidebar') ?>
 
   <!-- Main Content -->
   <div class="main-content flex-grow-1 d-flex flex-column">
-    
+    <div class="guru-overlay"></div>
+
     <!-- Header Khusus Halaman -->
-    <div class="navbar-dashboard d-flex justify-content-between align-items-center px-4 py-3 bg-dark text-white shadow-sm">
-    <button class="btn btn-outline-light me-3" id="toggleSidebar">
+    <div class="navbar-dashboard d-flex justify-content-between align-items-center px-4 py-3 bg-dark text-white shadow-sm z-3">
+      <button class="btn btn-outline-light me-3" id="toggleSidebar">
         <i class="bi bi-list"></i>
       </button>
       <h4 class="mb-0"><strong>Data Guru</strong></h4>
-      
       <div>
         <?= esc(session('nama_lengkap')) ?> |
         <a href="<?= base_url('logout') ?>" class="text-white ms-2">Logout</a>
@@ -21,59 +48,61 @@
     </div>
 
     <!-- Konten -->
-    
-    <div class="flex-grow-1 px-4 py-3">
-    <a href="<?= base_url('/admin/guru/create') ?>" class="btn btn-primary">
+    <div class="flex-grow-1 px-4 py-4 guru-container mt-4 shadow">
+      <a href="<?= base_url('/admin/guru/create') ?>" class="btn btn-primary mb-3">
         <i class="bi bi-plus-lg"></i> Tambah Guru
       </a>
+
       <?php if (session()->getFlashdata('success')): ?>
         <div class="alert alert-success">
           <?= session()->getFlashdata('success') ?>
         </div>
       <?php endif; ?>
+
       <div class="table-responsive">
-      <table class="table table-striped table-bordered" id="guruTable">
-        <thead class="table-dark">
-          <tr>
-            <th>No</th>
-            <th>Nama Lengkap</th>
-            <th>NIP</th>
-            <th>Username</th>
-            <th>Jenis Kelamin</th>
-            <th>Mata Pelajaran</th>
-            <th>Status</th>
-            <th>Sekolah</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php $no = 1; foreach ($guru as $g): ?>
+        <table class="table table-striped table-bordered" id="guruTable">
+          <thead class="table-dark">
             <tr>
-              <td><?= $no++ ?></td>
-              <td><?= esc($g['nama_lengkap']) ?></td>
-              <td><?= esc($g['nip']) ?></td>
-              <td><?= esc($g['username']) ?></td>
-              <td><?= esc($g['jenis_kelamin']) ?></td>
-              <td><?= esc($g['mata_pelajaran']) ?></td>
-              <td>
-                <?php if ($g['status_akun'] === 'aktif'): ?>
-                  <span class="badge bg-success">Aktif</span>
-                <?php else: ?>
-                  <span class="badge bg-secondary">Nonaktif</span>
-                <?php endif; ?>
-              </td>
-              <td><?= esc($g['sekolah_id']) ?></td> <!-- akan diganti dengan relasi nama sekolah nanti -->
-              <td>
-                <a href="<?= base_url('admin/guru/edit/' . $g['id']) ?>" class="btn btn-sm btn-warning">Edit</a>
-                <form action="<?= base_url('admin/guru/delete/' . $g['id']) ?>" method="post" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus guru ini?');">
-                  <?= csrf_field() ?>
-                  <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
-                </form>
-              </td>
+              <th>No</th>
+              <th>Nama Lengkap</th>
+              <th>NIP</th>
+              <th>Username</th>
+              <th>Jenis Kelamin</th>
+              <th>Mata Pelajaran</th>
+              <th>Status</th>
+              <th>Sekolah</th>
+              <th>Aksi</th>
             </tr>
-          <?php endforeach; ?>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <?php $no = 1; foreach ($guru as $g): ?>
+              <tr>
+                <td><?= $no++ ?></td>
+                <td><?= esc($g['nama_lengkap']) ?></td>
+                <td><?= esc($g['nip']) ?></td>
+                <td><?= esc($g['username']) ?></td>
+                <td><?= esc($g['jenis_kelamin']) ?></td>
+                <td><?= esc($g['mata_pelajaran']) ?></td>
+                <td>
+                  <?php if ($g['status_akun'] === 'aktif'): ?>
+                    <span class="badge bg-success">Aktif</span>
+                  <?php else: ?>
+                    <span class="badge bg-secondary">Nonaktif</span>
+                  <?php endif; ?>
+                </td>
+                <td><?= esc($g['sekolah_id']) ?></td> <!-- Akan diganti dengan relasi -->
+                <td>
+                  <a href="<?= base_url('admin/guru/edit/' . $g['id']) ?>" class="btn btn-sm btn-warning">Edit</a>
+                  <form action="<?= base_url('admin/guru/delete/' . $g['id']) ?>" method="post" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus guru ini?');">
+                    <?= csrf_field() ?>
+                    <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                  </form>
+                </td>
+              </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
