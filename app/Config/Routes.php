@@ -39,4 +39,20 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function($rout
     $routes->get('sekolah/delete/(:num)', 'Sekolah::delete/$1'); // Proses hapus
 });
 
-    
+
+$routes->group('admin', function($routes) {
+    $routes->get('siswa', 'Admin\Siswa::index');
+    $routes->get('siswa/create', 'Admin\Siswa::create');
+    $routes->post('siswa/store', 'Admin\Siswa::store');
+    $routes->get('siswa/edit/(:num)', 'Admin\Siswa::edit/$1');
+    $routes->post('siswa/update/(:num)', 'Admin\Siswa::update/$1');
+    $routes->post('siswa/delete/(:num)', 'Admin\Siswa::delete/$1');
+
+    $routes->get('guru', 'Admin\Guru::index');
+    $routes->get('guru/create', 'Admin\Guru::create');
+    $routes->post('guru/store', 'Admin\Guru::store');
+    $routes->get('guru/edit/(:num)', 'Admin\Guru::edit/$1');
+    $routes->post('guru/update/(:num)', 'Admin\Guru::update/$1');
+    $routes->post('guru/delete/(:num)', 'Admin\Guru::delete/$1');
+});
+
