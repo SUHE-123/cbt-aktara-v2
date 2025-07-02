@@ -9,7 +9,7 @@ use App\Models\SekolahModel;
 use App\Models\MapelModel;
 use App\Models\TokenModel;
 
-class Dashboard extends BaseController
+class dashboard extends BaseController
 {
     public function index()
     {

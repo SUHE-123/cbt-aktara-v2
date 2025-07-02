@@ -43,7 +43,6 @@
         <i class="bi bi-list"></i>
       </button>
       <h4 class="mb-0"><strong>Data Siswa</strong></h4>
-
       <div>
         <?= esc(session('nama_lengkap')) ?> |
         <a href="<?= base_url('logout') ?>" class="text-white ms-2">Logout</a>
@@ -69,13 +68,14 @@
               <th>No</th>
               <th>Nama Lengkap</th>
               <th>NIS</th>
-              <th>Username</th>
               <th>Jenis Kelamin</th>
               <th>Kelas</th>
               <th>Alamat</th>
               <th>Kontak</th>
               <th>Email</th>
               <th>Status Akun</th>
+              <th>User</th>
+              <th>Sekolah</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -85,7 +85,6 @@
                 <td><?= $no++ ?></td>
                 <td><?= esc($s['nama_lengkap']) ?></td>
                 <td><?= esc($s['nis']) ?></td>
-                <td><?= esc($s['username']) ?></td>
                 <td><?= esc($s['jenis_kelamin']) === 'L' ? 'Laki-laki' : 'Perempuan' ?></td>
                 <td><?= esc($s['kelas']) ?></td>
                 <td><?= esc($s['alamat']) ?></td>
@@ -96,6 +95,8 @@
                     <?= esc(ucfirst($s['status_akun'])) ?>
                   </span>
                 </td>
+                <td><?= esc($s['user_nama'] ?? '-') ?> (<?= esc($s['username'] ?? '-') ?>)</td>
+                <td><?= esc($s['nama_sekolah'] ?? '-') ?></td>
                 <td>
                   <a href="<?= base_url('admin/siswa/edit/' . $s['id']) ?>" class="btn btn-sm btn-warning mb-1">Edit</a>
                   <form action="<?= base_url('admin/siswa/delete/' . $s['id']) ?>" method="post" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus siswa ini?');">

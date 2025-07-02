@@ -15,5 +15,6 @@ class MapelModel extends Model
         'jenjang',
         'jurusan',
         'status',
+        'guru_id'
     ];
 }

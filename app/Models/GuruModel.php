@@ -10,7 +10,7 @@ class GuruModel extends Model
     protected $primaryKey = 'id';
 
     protected $allowedFields = [
-        'nama_lengkap', 'nip', 'username', 'password',
+        'user_id','nama_lengkap', 'nip', 'username', 'password',
         'jenis_kelamin', 'mata_pelajaran', 'alamat',
         'kontak', 'email', 'status_akun', 'sekolah_id'
     ];

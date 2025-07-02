@@ -29,16 +29,10 @@
 </style>
 
 <div class="d-flex sekolah-index-wrapper">
-  <!-- Sidebar -->
   <?= $this->include('layout/sidebar') ?>
-
-  <!-- Overlay Blur -->
   <div class="sekolah-index-overlay"></div>
 
-  <!-- Main Content -->
   <div class="main-content flex-grow-1 d-flex flex-column">
-    
-    <!-- Navbar -->
     <div class="navbar-dashboard d-flex justify-content-between align-items-center px-4 py-3 bg-dark text-white shadow-sm z-3">
       <button class="btn btn-outline-light me-3" id="toggleSidebar">
         <i class="bi bi-list"></i>
@@ -50,7 +44,6 @@
       </div>
     </div>
 
-    <!-- Konten -->
     <div class="flex-grow-1 sekolah-index-content shadow">
       <a href="<?= base_url('/admin/guru/create') ?>" class="btn btn-primary mb-3">
         <i class="bi bi-plus-lg"></i> Tambah Guru
@@ -62,7 +55,6 @@
         </div>
       <?php endif; ?>
 
-
       <div class="table-responsive">
         <table class="table table-striped table-bordered" id="guruTable">
           <thead class="table-dark">
@@ -70,11 +62,14 @@
               <th>No</th>
               <th>Nama Lengkap</th>
               <th>NIP</th>
-              <th>Username</th>
               <th>Jenis Kelamin</th>
               <th>Mata Pelajaran</th>
-              <th>Status</th>
+              <th>Email</th>
+              <th>Kontak</th>
+              <th>Alamat</th>
+              <th>User Login</th>
               <th>Sekolah</th>
+              <th>Status</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -84,17 +79,21 @@
                 <td><?= $no++ ?></td>
                 <td><?= esc($g['nama_lengkap']) ?></td>
                 <td><?= esc($g['nip']) ?></td>
-                <td><?= esc($g['username']) ?></td>
                 <td><?= esc($g['jenis_kelamin']) ?></td>
                 <td><?= esc($g['mata_pelajaran']) ?></td>
+                <td><?= esc($g['email']) ?></td>
+                <td><?= esc($g['kontak']) ?></td>
+                <td><?= esc($g['alamat']) ?></td>
                 <td>
-                  <?php if ($g['status_akun'] === 'aktif'): ?>
-                    <span class="badge bg-success">Aktif</span>
-                  <?php else: ?>
-                    <span class="badge bg-secondary">Nonaktif</span>
-                  <?php endif; ?>
+                  <?= esc($g['user_nama'] ?? '') ?> 
+                  (<?= esc($g['user_username'] ?? '-') ?>)
                 </td>
-                <td><?= esc($g['sekolah_id']) ?></td> <!-- Akan diganti dengan relasi -->
+                <td><?= esc($g['nama_sekolah'] ?? '-') ?></td>
+                <td>
+                  <span class="badge bg-<?= $g['status_akun'] === 'aktif' ? 'success' : 'secondary' ?>">
+                    <?= ucfirst($g['status_akun']) ?>
+                  </span>
+                </td>
                 <td>
                   <a href="<?= base_url('admin/guru/edit/' . $g['id']) ?>" class="btn btn-sm btn-warning">Edit</a>
                   <form action="<?= base_url('admin/guru/delete/' . $g['id']) ?>" method="post" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus guru ini?');">

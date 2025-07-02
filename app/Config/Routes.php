@@ -5,7 +5,7 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-// $routes->get('/', 'Home::index');
+ $routes->get('/', 'Auth::login');
 $routes->get('/', 'Admin\Dashboard::index');
 $routes->group('admin', function ($routes) {
     $routes->get('dashboard', 'Admin\Dashboard::index');
@@ -13,6 +13,22 @@ $routes->group('admin', function ($routes) {
     
     // Tambahkan rute lainnya di sini nanti
 });
+
+$routes->group('admin', ['filter' => 'authadmin'], function ($routes) {
+    
+    // Route untuk Users (User Management)
+    $routes->get('users', 'Admin\Users::index');
+    $routes->get('users/create', 'Admin\Users::create');
+    $routes->post('users/store', 'Admin\Users::store');
+    $routes->get('users/edit/(:num)', 'Admin\Users::edit/$1');
+    $routes->post('users/update/(:num)', 'Admin\Users::update/$1');
+    $routes->post('users/delete/(:num)', 'Admin\Users::delete/$1');
+
+    // ...rute lainnya seperti siswa, guru, mapel, dll
+
+});
+
+
 
 $routes->get('login', 'Auth::login');
 $routes->post('login', 'Auth::loginProcess');
@@ -64,4 +80,14 @@ $routes->group('admin/mapel', ['namespace' => 'App\Controllers\Admin'], function
     $routes->get('edit/(:num)', 'Mapel::edit/$1'); 
     $routes->post('update/(:num)', 'Mapel::update/$1'); 
     $routes->post('delete/(:num)', 'Mapel::delete/$1'); 
+});
+
+// Jenis Buku
+$routes->group('admin', ['filter' => 'authadmin'], function($routes) {
+    $routes->get('jenisbuku', 'Admin\JenisBuku::index');
+    $routes->get('jenisbuku/create', 'Admin\JenisBuku::create');
+    $routes->post('jenisbuku/store', 'Admin\JenisBuku::store');
+    $routes->get('jenisbuku/edit/(:num)', 'Admin\JenisBuku::edit/$1');
+    $routes->post('jenisbuku/update/(:num)', 'Admin\JenisBuku::update/$1');
+    $routes->post('jenisbuku/delete/(:num)', 'Admin\JenisBuku::delete/$1');
 });

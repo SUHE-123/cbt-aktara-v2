@@ -5,35 +5,45 @@ namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
 use App\Models\GuruModel;
 use App\Models\SekolahModel;
+use App\Models\UserModel;
 
 class guru extends BaseController
 {
     protected $guruModel;
+    protected $userModel;
+    protected $sekolahModel;
 
     public function __construct()
     {
         $this->guruModel = new GuruModel();
+        $this->userModel = new UserModel();
+        $this->sekolahModel = new SekolahModel();
     }
 
     public function index()
     {
-        $data['guru'] = $this->guruModel->findAll();
+        $data['guru'] = $this->guruModel
+        ->select('guru.*, users.username as user_username, sekolah.nama_sekolah')
+        ->join('users', 'users.id = guru.user_id', 'left')
+        ->join('sekolah', 'sekolah.id = guru.sekolah_id', 'left')
+        ->findAll();
+
         return view('admin/guru/index', $data);
     }
 
     public function create()
     {
         $data['sekolah'] = (new SekolahModel())->findAll();
+        $data['users'] = $this->userModel->where('role', 'guru')->findAll();
         return view('admin/guru/create', $data);
     }
 
     public function store()
     {
         $this->guruModel->insert([
+            'user_id'        => $this->request->getPost('user_id'),
             'nama_lengkap'    => $this->request->getPost('nama_lengkap'),
             'nip'             => $this->request->getPost('nip'),
-            'username'        => $this->request->getPost('username'),
-            'password'        => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
             'jenis_kelamin'   => $this->request->getPost('jenis_kelamin'),
             'mata_pelajaran'  => $this->request->getPost('mata_pelajaran'),
             'alamat'          => $this->request->getPost('alamat'),
@@ -50,6 +60,7 @@ class guru extends BaseController
     {
         $data['guru'] = $this->guruModel->find($id);
         $data['sekolah'] = (new SekolahModel())->findAll();
+        $data['users'] = $this->userModel->where('role', 'guru')->findAll();
 
         return view('admin/guru/edit', $data);
     }
@@ -57,9 +68,9 @@ class guru extends BaseController
     public function update($id)
     {
         $data = [
+            'user_id'        => $this->request->getPost('user_id'),
             'nama_lengkap'    => $this->request->getPost('nama_lengkap'),
             'nip'             => $this->request->getPost('nip'),
-            'username'        => $this->request->getPost('username'),
             'jenis_kelamin'   => $this->request->getPost('jenis_kelamin'),
             'mata_pelajaran'  => $this->request->getPost('mata_pelajaran'),
             'alamat'          => $this->request->getPost('alamat'),

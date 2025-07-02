@@ -21,23 +21,20 @@
   .siswa-create-content {
     position: relative;
     z-index: 2;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.95);
     padding: 2rem;
-    margin: 2rem;
-    border-radius: 8px;
+    margin: 2rem auto;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 800px;
   }
 </style>
 
 <div class="d-flex siswa-create-wrapper">
-  <!-- Sidebar -->
   <?= $this->include('layout/sidebar') ?>
-
-  <!-- Overlay -->
   <div class="siswa-create-overlay"></div>
 
-  <!-- Main Content -->
   <div class="main-content flex-grow-1 d-flex flex-column">
-
     <!-- Header -->
     <div class="navbar-dashboard d-flex justify-content-between align-items-center px-4 py-3 bg-dark text-white shadow-sm z-3">
       <button class="btn btn-outline-light me-3" id="toggleSidebar">
@@ -50,74 +47,73 @@
       </div>
     </div>
 
-    <!-- Form Content -->
-    <div class="siswa-create-content shadow">
+    <!-- Form -->
+    <div class="siswa-create-content">
       <form action="<?= base_url('/admin/siswa/store') ?>" method="post">
         <?= csrf_field() ?>
 
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
-            <input type="text" name="nama_lengkap" class="form-control" required>
-          </div>
-          <div class="col-md-6">
-            <label for="nis" class="form-label">NIS</label>
-            <input type="text" name="nis" class="form-control" required>
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <label for="username" class="form-label">Username</label>
-            <input type="text" name="username" class="form-control" required>
-          </div>
-          <div class="col-md-6">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" name="password" class="form-control" required>
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <div class="col-md-4">
-            <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
-            <select name="jenis_kelamin" class="form-select" required>
-              <option value="">-- Pilih --</option>
-              <option value="L">Laki-laki</option>
-              <option value="P">Perempuan</option>
-            </select>
-          </div>
-          <div class="col-md-4">
-            <label for="kelas" class="form-label">Kelas</label>
-            <input type="text" name="kelas" class="form-control" required>
-          </div>
-          <div class="col-md-4">
-            <label for="status_akun" class="form-label">Status Akun</label>
-            <select name="status_akun" class="form-select" required>
-              <option value="aktif" selected>Aktif</option>
-              <option value="nonaktif">Nonaktif</option>
-            </select>
-          </div>
+        <div class="mb-3">
+          <label for="user_id">id user</label>
+          <select name="user_id" class="form-select" >
+            <option value="">-- Pilih User --</option>
+            <?php foreach ($users as $user): ?>
+              <option value="<?= $user['id'] ?>">
+                <?= esc($user['nama_lengkap']) ?> (<?= esc($user['username']) ?>)
+              </option>
+            <?php endforeach; ?>
+          </select>
         </div>
 
         <div class="mb-3">
-          <label for="alamat" class="form-label">Alamat</label>
-          <textarea name="alamat" class="form-control" rows="2"></textarea>
+          <label>Nama Lengkap</label>
+          <input type="text" name="nama_lengkap" class="form-control" required>
         </div>
 
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <label for="kontak" class="form-label">Kontak</label>
-            <input type="text" name="kontak" class="form-control">
-          </div>
-          <div class="col-md-6">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" name="email" class="form-control">
-          </div>
+        <div class="mb-3">
+          <label>NIS</label>
+          <input type="text" name="nis" class="form-control" required>
         </div>
 
-        <div class="mb-4">
-          <label for="sekolah_id" class="form-label">Asal Sekolah</label>
-          <select name="sekolah_id" class="form-select">
+        <div class="mb-3">
+          <label>Jenis Kelamin</label>
+          <select name="jenis_kelamin" class="form-select" required>
+            <option value="">-- Pilih --</option>
+            <option value="L">Laki-laki</option>
+            <option value="P">Perempuan</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label>Kelas</label>
+          <input type="text" name="kelas" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+          <label>Alamat</label>
+          <textarea name="alamat" class="form-control"></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label>Kontak</label>
+          <input type="text" name="kontak" class="form-control">
+        </div>
+
+        <div class="mb-3">
+          <label>Email</label>
+          <input type="email" name="email" class="form-control">
+        </div>
+
+        <div class="mb-3">
+          <label>Status Akun</label>
+          <select name="status_akun" class="form-select" required>
+            <option value="aktif">Aktif</option>
+            <option value="nonaktif">Nonaktif</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label>Sekolah</label>
+          <select name="sekolah_id" class="form-select" required>
             <option value="">-- Pilih Sekolah --</option>
             <?php foreach ($sekolah as $s): ?>
               <option value="<?= $s['id'] ?>"><?= esc($s['nama_sekolah']) ?></option>
@@ -125,11 +121,9 @@
           </select>
         </div>
 
-        <button type="submit" class="btn btn-success"><i class="bi bi-save"></i> Simpan</button>
-        <a href="<?= base_url('/admin/siswa') ?>" class="btn btn-secondary ms-2">Kembali</a>
+        <button type="submit" class="btn btn-success">Simpan</button>
+        <a href="<?= base_url('/admin/siswa') ?>" class="btn btn-secondary">Kembali</a>
       </form>
     </div>
   </div>
 </div>
-
-

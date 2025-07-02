@@ -55,6 +55,18 @@
 
         <div class="row">
           <div class="col-md-6 mb-3">
+            <label>ID User</label>
+            <select name="user_id" class="form-select">
+              <option value="">-- Pilih User --</option>
+              <?php foreach ($users as $user): ?>
+                <option value="<?= $user['id'] ?>" <?= $guru['user_id'] == $user['id'] ? 'selected' : '' ?>>
+                  <?= esc($user['nama_lengkap']) ?> (<?= esc($user['username']) ?>)
+                </option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+
+          <div class="col-md-6 mb-3">
             <label>Nama Lengkap</label>
             <input type="text" name="nama_lengkap" value="<?= esc($guru['nama_lengkap']) ?>" class="form-control" required>
           </div>
@@ -62,16 +74,6 @@
           <div class="col-md-6 mb-3">
             <label>NIP</label>
             <input type="text" name="nip" value="<?= esc($guru['nip']) ?>" class="form-control">
-          </div>
-
-          <div class="col-md-6 mb-3">
-            <label>Username</label>
-            <input type="text" name="username" value="<?= esc($guru['username']) ?>" class="form-control" required>
-          </div>
-
-          <div class="col-md-6 mb-3">
-            <label>Password (Kosongkan jika tidak diubah)</label>
-            <input type="password" name="password" class="form-control">
           </div>
 
           <div class="col-md-6 mb-3">
@@ -87,6 +89,22 @@
             <input type="text" name="mata_pelajaran" value="<?= esc($guru['mata_pelajaran']) ?>" class="form-control">
           </div>
 
+            <div class="col-md-6 mb-3">
+            <label>Email</label>
+            <input type="email" name="email" value="<?= esc($guru['email']) ?>" class="form-control">
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label>Kontak</label>
+            <input type="text" name="kontak" value="<?= esc($guru['kontak']) ?>" class="form-control">
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label>Alamat</label>
+            <input type="text" name="alamat" value="<?= esc($guru['alamat']) ?>" class="form-control">
+          </div>
+
+
           <div class="col-md-6 mb-3">
             <label>Status Akun</label>
             <select name="status_akun" class="form-select">
@@ -96,9 +114,17 @@
           </div>
 
           <div class="col-md-6 mb-3">
-            <label>ID Sekolah</label>
-            <input type="number" name="sekolah_id" value="<?= esc($guru['sekolah_id']) ?>" class="form-control">
+            <label>Sekolah</label>
+            <select name="sekolah_id" class="form-select" required>
+              <option value="">-- Pilih Sekolah --</option>
+              <?php foreach ($sekolah as $s): ?>
+                <option value="<?= $s['id'] ?>" <?= $guru['sekolah_id'] == $s['id'] ? 'selected' : '' ?>>
+                  <?= esc($s['nama_sekolah']) ?>
+                </option>
+              <?php endforeach; ?>
+            </select>
           </div>
+
         </div>
 
         <button type="submit" class="btn btn-primary">Update</button>
@@ -107,4 +133,3 @@
     </div>
   </div>
 </div>
-

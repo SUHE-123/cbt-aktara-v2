@@ -21,23 +21,20 @@
   .siswa-edit-content {
     position: relative;
     z-index: 2;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.95);
     padding: 2rem;
-    margin: 2rem;
-    border-radius: 8px;
+    margin: 2rem auto;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 800px;
   }
 </style>
 
 <div class="d-flex siswa-edit-wrapper">
-  <!-- Sidebar -->
   <?= $this->include('layout/sidebar') ?>
-
-  <!-- Overlay -->
   <div class="siswa-edit-overlay"></div>
 
-  <!-- Main Content -->
   <div class="main-content flex-grow-1 d-flex flex-column">
-
     <!-- Header -->
     <div class="navbar-dashboard d-flex justify-content-between align-items-center px-4 py-3 bg-dark text-white shadow-sm z-3">
       <button class="btn btn-outline-light me-3" id="toggleSidebar">
@@ -50,73 +47,72 @@
       </div>
     </div>
 
-    <!-- Form Content -->
-    <div class="siswa-edit-content shadow">
+    <!-- Form -->
+    <div class="siswa-edit-content">
       <form action="<?= base_url('/admin/siswa/update/' . $siswa['id']) ?>" method="post">
         <?= csrf_field() ?>
 
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <label class="form-label">Nama Lengkap</label>
-            <input type="text" name="nama_lengkap" class="form-control" value="<?= esc($siswa['nama_lengkap']) ?>" required>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">NIS</label>
-            <input type="text" name="nis" class="form-control" value="<?= esc($siswa['nis']) ?>" required>
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <label class="form-label">Username</label>
-            <input type="text" name="username" class="form-control" value="<?= esc($siswa['username']) ?>" required>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Password (kosongkan jika tidak diubah)</label>
-            <input type="password" name="password" class="form-control">
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <div class="col-md-4">
-            <label class="form-label">Jenis Kelamin</label>
-            <select name="jenis_kelamin" class="form-select" required>
-              <option value="L" <?= $siswa['jenis_kelamin'] == 'L' ? 'selected' : '' ?>>Laki-laki</option>
-              <option value="P" <?= $siswa['jenis_kelamin'] == 'P' ? 'selected' : '' ?>>Perempuan</option>
-            </select>
-          </div>
-          <div class="col-md-4">
-            <label class="form-label">Kelas</label>
-            <input type="text" name="kelas" class="form-control" value="<?= esc($siswa['kelas']) ?>" required>
-          </div>
-          <div class="col-md-4">
-            <label class="form-label">Status Akun</label>
-            <select name="status_akun" class="form-select" required>
-              <option value="aktif" <?= $siswa['status_akun'] == 'aktif' ? 'selected' : '' ?>>Aktif</option>
-              <option value="nonaktif" <?= $siswa['status_akun'] == 'nonaktif' ? 'selected' : '' ?>>Nonaktif</option>
-            </select>
-          </div>
+        <div class="mb-3">
+          <label for="user_id">Id User</label>
+          <select name="user_id" class="form-select">
+            <option value="">-- Pilih User --</option>
+            <?php foreach ($users as $user): ?>
+              <option value="<?= $user['id'] ?>" <?= $siswa['user_id'] == $user['id'] ? 'selected' : '' ?>>
+                <?= esc($user['nama_lengkap']) ?> (<?= esc($user['username']) ?>)
+              </option>
+            <?php endforeach; ?>
+          </select>
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Alamat</label>
+          <label>Nama Lengkap</label>
+          <input type="text" name="nama_lengkap" class="form-control" value="<?= esc($siswa['nama_lengkap']) ?>" required>
+        </div>
+
+        <div class="mb-3">
+          <label>NIS</label>
+          <input type="text" name="nis" class="form-control" value="<?= esc($siswa['nis']) ?>" required>
+        </div>
+
+        <div class="mb-3">
+          <label>Jenis Kelamin</label>
+          <select name="jenis_kelamin" class="form-select" required>
+            <option value="L" <?= $siswa['jenis_kelamin'] == 'L' ? 'selected' : '' ?>>Laki-laki</option>
+            <option value="P" <?= $siswa['jenis_kelamin'] == 'P' ? 'selected' : '' ?>>Perempuan</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label>Kelas</label>
+          <input type="text" name="kelas" class="form-control" value="<?= esc($siswa['kelas']) ?>" required>
+        </div>
+
+        <div class="mb-3">
+          <label>Alamat</label>
           <textarea name="alamat" class="form-control"><?= esc($siswa['alamat']) ?></textarea>
         </div>
 
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <label class="form-label">Kontak</label>
-            <input type="text" name="kontak" class="form-control" value="<?= esc($siswa['kontak']) ?>">
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Email</label>
-            <input type="email" name="email" class="form-control" value="<?= esc($siswa['email']) ?>">
-          </div>
+        <div class="mb-3">
+          <label>Kontak</label>
+          <input type="text" name="kontak" class="form-control" value="<?= esc($siswa['kontak']) ?>">
         </div>
 
-        <div class="mb-4">
-          <label class="form-label">Asal Sekolah</label>
-          <select name="sekolah_id" class="form-select">
+        <div class="mb-3">
+          <label>Email</label>
+          <input type="email" name="email" class="form-control" value="<?= esc($siswa['email']) ?>">
+        </div>
+
+        <div class="mb-3">
+          <label>Status Akun</label>
+          <select name="status_akun" class="form-select" required>
+            <option value="aktif" <?= $siswa['status_akun'] == 'aktif' ? 'selected' : '' ?>>Aktif</option>
+            <option value="nonaktif" <?= $siswa['status_akun'] == 'nonaktif' ? 'selected' : '' ?>>Nonaktif</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label>Sekolah</label>
+          <select name="sekolah_id" class="form-select" required>
             <option value="">-- Pilih Sekolah --</option>
             <?php foreach ($sekolah as $s): ?>
               <option value="<?= $s['id'] ?>" <?= $siswa['sekolah_id'] == $s['id'] ? 'selected' : '' ?>>
@@ -126,8 +122,8 @@
           </select>
         </div>
 
-        <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Update</button>
-        <a href="<?= base_url('/admin/siswa') ?>" class="btn btn-secondary ms-2">Batal</a>
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a href="<?= base_url('/admin/siswa') ?>" class="btn btn-secondary">Batal</a>
       </form>
     </div>
   </div>
