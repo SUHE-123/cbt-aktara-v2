@@ -13,7 +13,7 @@
         body {
             margin: 0;
             padding: 0;
-            background: url("<?= base_url('assets/img/joggun4.jpg') ?>") no-repeat center center fixed;
+            background: url("<?= base_url('assets/img/backround3.jpg') ?>") no-repeat center center fixed;
             background-size: cover;
             height: 100vh;
             position: relative;

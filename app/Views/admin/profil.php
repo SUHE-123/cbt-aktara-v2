@@ -8,7 +8,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: url('<?= base_url('assets/img/joggun4.jpg') ?>') center center / cover no-repeat;
+        background: url('<?= base_url('assets/img/backround3.jpg') ?>') center center / cover no-repeat;
         z-index: -2;
     }
 
@@ -54,15 +54,15 @@
                 <div class="col-md-8">
                     <div class="mb-3">
                         <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
-                        <input type="text" name="nama_lengkap" value="<?= $user['nama_lengkap'] ?>" class="form-control" required>
+                        <input type="text" name="nama_lengkap" value="<?= $user['nama_lengkap'] ?? '' ?>" class="form-control">
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" name="email" value="<?= $user['email'] ?>" class="form-control">
+                        <input type="email" name="email" value="<?= $user['email'] ?? '' ?>" class="form-control">
                     </div>
                     <div class="mb-3">
                         <label for="no_hp" class="form-label">No. HP</label>
-                        <input type="text" name="no_hp" value="<?= $user['no_hp'] ?>" class="form-control">
+                        <input type="text" name="no_hp" value="<?= $user['no_hp'] ?? '' ?>" class="form-control">
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password Baru (opsional)</label>

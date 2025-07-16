@@ -3,7 +3,7 @@
 <style>
   .siswa-index-wrapper {
     position: relative;
-    background: url('<?= base_url('assets/img/joggun4.jpg') ?>') center center / cover no-repeat;
+    background: url('<?= base_url('assets/img/backround3.jpg') ?>') center center / cover no-repeat;
     min-height: 100vh;
     overflow-x: hidden;
   }

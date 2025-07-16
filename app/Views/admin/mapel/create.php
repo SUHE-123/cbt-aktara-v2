@@ -3,7 +3,7 @@
 <style>
   .form-wrapper {
     position: relative;
-    background: url('<?= base_url('assets/img/joggun4.jpg') ?>') no-repeat center center;
+    background: url('<?= base_url('assets/img/backround3.jpg') ?>') no-repeat center center;
     background-size: cover;
     min-height: 100vh;
     overflow-x: hidden;
@@ -40,7 +40,7 @@
       <button class="btn btn-outline-light me-3" id="toggleSidebar">
         <i class="bi bi-list"></i>
       </button>
-      <h4 class="mb-0"><strong>Tambah Mata PElajaran</strong></h4>
+      <h4 class="mb-0"><strong>Tambah Mata Pelajaran</strong></h4>
       <div>
         <?= esc(session('nama_lengkap')) ?> |
         <a href="<?= base_url('logout') ?>" class="text-white ms-2">Logout</a>

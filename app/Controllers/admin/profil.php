@@ -12,6 +12,11 @@ class profil extends BaseController
         $userModel = new UserModel();
         $user = $userModel->find(session()->get('id'));
 
+        if (!$user) {
+            // Redirect atau tampilkan error jika user tidak ditemukan
+            return redirect()->to('/login')->with('error', 'User tidak ditemukan. Silakan login ulang.');
+        }
+
         return view('admin/profil', ['user' => $user]);
     }
 

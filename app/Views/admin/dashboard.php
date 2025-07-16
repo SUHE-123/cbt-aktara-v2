@@ -9,7 +9,7 @@
 
   .dashboard-bg::before {
     content: "";
-    background: url('<?= base_url('assets/img/joggun4.jpg') ?>') no-repeat center center;
+    background: url('<?= base_url('assets/img/backround3.jpg') ?>') no-repeat center center;
     background-size: cover;
     filter: blur(8px);
     position: absolute;

@@ -91,3 +91,61 @@ $routes->group('admin', ['filter' => 'authadmin'], function($routes) {
     $routes->post('jenisbuku/update/(:num)', 'Admin\JenisBuku::update/$1');
     $routes->post('jenisbuku/delete/(:num)', 'Admin\JenisBuku::delete/$1');
 });
+
+// Koleksi Buku
+$routes->group('admin', ['filter'=>'authadmin'], function($routes){
+    $routes->get('koleksibuku',                'Admin\KoleksiBuku::index');
+    $routes->get('koleksibuku/create',         'Admin\KoleksiBuku::create');
+    $routes->post('koleksibuku/store',         'Admin\KoleksiBuku::store');
+    $routes->get('koleksibuku/edit/(:num)',    'Admin\KoleksiBuku::edit/$1');
+    $routes->post('koleksibuku/update/(:num)', 'Admin\KoleksiBuku::update/$1');
+    $routes->post('koleksibuku/delete/(:num)', 'Admin\KoleksiBuku::delete/$1');
+});
+
+// Routes untuk Jenis Ujian
+$routes->group('admin/jenisujian', ['namespace' => 'App\Controllers\Admin'], function($routes) {
+    $routes->get('/', 'JenisUjian::index');
+    $routes->get('create', 'JenisUjian::create');
+    $routes->post('store', 'JenisUjian::store');
+    $routes->get('edit/(:num)', 'JenisUjian::edit/$1');
+    $routes->post('update/(:num)', 'JenisUjian::update/$1');
+    $routes->post('delete/(:num)', 'JenisUjian::delete/$1');
+});
+
+// Routes untuk Sesi Ujian
+$routes->get('/admin/sesiujian', 'Admin\SesiUjian::index');
+$routes->get('/admin/sesiujian/create', 'Admin\SesiUjian::create');
+$routes->post('/admin/sesiujian/store', 'Admin\SesiUjian::store');
+$routes->get('/admin/sesiujian/edit/(:num)', 'Admin\SesiUjian::edit/$1');
+$routes->post('/admin/sesiujian/update/(:num)', 'Admin\SesiUjian::update/$1');
+$routes->post('/admin/sesiujian/delete/(:num)', 'Admin\SesiUjian::delete/$1');
+
+// Routes untuk Nomor Peserta
+$routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function($routes) {
+    $routes->get('nomorpeserta', 'NomorPeserta::index');
+    $routes->get('nomorpeserta/create', 'NomorPeserta::create');
+    $routes->post('nomorpeserta/store', 'NomorPeserta::store');
+    $routes->get('nomorpeserta/edit/(:num)', 'NomorPeserta::edit/$1');
+    $routes->post('nomorpeserta/update/(:num)', 'NomorPeserta::update/$1');
+    $routes->post('nomorpeserta/delete/(:num)', 'NomorPeserta::delete/$1');
+});
+
+$routes->group('admin', function($routes) {
+    // Bank Soal
+    $routes->get('banksoal', 'Admin\BankSoal::index');
+    $routes->get('banksoal/create', 'Admin\BankSoal::create');
+    $routes->post('banksoal/store', 'Admin\BankSoal::store');
+    $routes->get('banksoal/edit/(:num)', 'Admin\BankSoal::edit/$1');
+    $routes->post('banksoal/update/(:num)', 'Admin\BankSoal::update/$1');
+    $routes->post('banksoal/delete/(:num)', 'Admin\BankSoal::delete/$1');
+});
+
+$routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function($routes) {
+    $routes->get('jadwalujian',              'JadwalUjian::index');
+    $routes->get('jadwalujian/create',       'JadwalUjian::create');
+    $routes->post('jadwalujian/store',       'JadwalUjian::store');
+    $routes->get('jadwalujian/edit/(:num)',  'JadwalUjian::edit/$1');
+    $routes->post('jadwalujian/update/(:num)','JadwalUjian::update/$1');
+    $routes->post('jadwalujian/delete/(:num)','JadwalUjian::delete/$1');
+});
+
