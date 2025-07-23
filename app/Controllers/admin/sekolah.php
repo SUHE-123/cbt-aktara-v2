@@ -5,7 +5,7 @@ namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
 use App\Models\SekolahModel;
 
-class sekolah extends BaseController
+class Sekolah extends BaseController
 {
     protected $sekolahModel;
 
@@ -27,7 +27,7 @@ class sekolah extends BaseController
 
     public function store()
     {
-        $this->sekolahModel->save([
+        $data = [
             'npsn'            => $this->request->getPost('npsn'),
             'nama_sekolah'    => $this->request->getPost('nama_sekolah'),
             'jenjang'         => $this->request->getPost('jenjang'),
@@ -41,7 +41,17 @@ class sekolah extends BaseController
             'kontak'          => $this->request->getPost('kontak'),
             'email'           => $this->request->getPost('email'),
             'kepala_sekolah'  => $this->request->getPost('kepala_sekolah'),
-        ]);
+        ];
+
+        // Handle Upload Logo
+        $logo = $this->request->getFile('logo');
+        if ($logo && $logo->isValid() && !$logo->hasMoved()) {
+            $newName = $logo->getRandomName();
+            $logo->move('uploads/logo/', $newName);
+            $data['logo'] = $newName;
+        }
+
+        $this->sekolahModel->save($data);
 
         return redirect()->to('/admin/sekolah')->with('success', 'Data sekolah berhasil ditambahkan.');
     }
@@ -54,7 +64,7 @@ class sekolah extends BaseController
 
     public function update($id)
     {
-        $this->sekolahModel->update($id, [
+        $data = [
             'npsn'            => $this->request->getPost('npsn'),
             'nama_sekolah'    => $this->request->getPost('nama_sekolah'),
             'jenjang'         => $this->request->getPost('jenjang'),
@@ -68,7 +78,17 @@ class sekolah extends BaseController
             'kontak'          => $this->request->getPost('kontak'),
             'email'           => $this->request->getPost('email'),
             'kepala_sekolah'  => $this->request->getPost('kepala_sekolah'),
-        ]);
+        ];
+
+        // Handle Upload Logo (replace jika upload baru)
+        $logo = $this->request->getFile('logo');
+        if ($logo && $logo->isValid() && !$logo->hasMoved()) {
+            $newName = $logo->getRandomName();
+            $logo->move('uploads/logo/', $newName);
+            $data['logo'] = $newName;
+        }
+
+        $this->sekolahModel->update($id, $data);
 
         return redirect()->to('/admin/sekolah')->with('success', 'Data sekolah berhasil diperbarui.');
     }

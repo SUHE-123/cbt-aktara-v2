@@ -51,7 +51,7 @@
 
     <!-- Konten -->
     <div class="flex-grow-1 siswa-index-content shadow-sm">
-      <a href="<?= base_url('/admin/siswa/create') ?>" class="btn btn-primary mb-3">
+      <a href="<?= base_url('/admin/users/create') ?>" class="btn btn-primary mb-3">
         <i class="bi bi-plus-lg"></i> Tambah User
       </a>
 

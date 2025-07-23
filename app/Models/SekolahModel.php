@@ -14,6 +14,7 @@ class SekolahModel extends Model
     protected $allowedFields = [
         'npsn',
         'nama_sekolah',
+        'logo',
         'jenjang',
         'status',
         'alamat',

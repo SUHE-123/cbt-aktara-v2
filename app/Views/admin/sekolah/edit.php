@@ -29,15 +29,11 @@
 </style>
 
 <div class="d-flex sekolah-edit-wrapper">
-  <!-- Sidebar -->
   <?= $this->include('layout/sidebar') ?>
 
-  <!-- Main Content -->
   <div class="main-content flex-grow-1 d-flex flex-column">
-    <!-- Overlay -->
     <div class="sekolah-edit-overlay"></div>
 
-    <!-- Header -->
     <div class="navbar-dashboard d-flex justify-content-between align-items-center px-4 py-3 bg-dark text-white shadow-sm z-3">
       <button class="btn btn-outline-light me-3" id="toggleSidebar">
         <i class="bi bi-list"></i>
@@ -49,9 +45,8 @@
       </div>
     </div>
 
-    <!-- Form Container -->
     <div class="sekolah-edit-container shadow">
-      <form action="<?= base_url('/admin/sekolah/update/' . $sekolah['id']) ?>" method="post">
+      <form action="<?= base_url('/admin/sekolah/update/' . $sekolah['id']) ?>" method="post" enctype="multipart/form-data">
         <?= csrf_field() ?>
 
         <div class="row mb-3">
@@ -121,9 +116,20 @@
           </div>
         </div>
 
-        <div class="mb-4">
+        <div class="mb-3">
           <label>Kepala Sekolah</label>
           <input type="text" name="kepala_sekolah" class="form-control" value="<?= esc($sekolah['kepala_sekolah']) ?>">
+        </div>
+
+        <div class="mb-4">
+          <label>Logo Sekolah</label>
+          <?php if (!empty($sekolah['logo'])): ?>
+            <div class="mb-2">
+              <img src="<?= base_url('uploads/logo/' . $sekolah['logo']) ?>" alt="Logo Sekolah" width="100">
+            </div>
+          <?php endif; ?>
+          <input type="file" name="logo" class="form-control">
+          <small class="text-muted">Kosongkan jika tidak ingin mengubah logo.</small>
         </div>
 
         <button type="submit" class="btn btn-primary">Update</button>
@@ -132,4 +138,3 @@
     </div>
   </div>
 </div>
-

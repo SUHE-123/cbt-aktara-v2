@@ -7,7 +7,7 @@ use App\Models\SiswaModel;
 use App\Models\SekolahModel;
 use App\Models\UserModel;
 
-class Siswa extends BaseController
+class siswa extends BaseController
 {
     protected $siswaModel;
     protected $userModel;

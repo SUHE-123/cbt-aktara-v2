@@ -51,7 +51,7 @@
 
     <!-- Form Container -->
     <div class="sekolah-create-container shadow">
-      <form action="<?= base_url('/admin/sekolah/store') ?>" method="post">
+      <form action="<?= base_url('/admin/sekolah/store') ?>" method="post" enctype="multipart/form-data">
         <?= csrf_field() ?>
 
         <div class="row mb-3">
@@ -122,9 +122,15 @@
           </div>
         </div>
 
-        <div class="mb-4">
+        <div class="mb-3">
           <label>Kepala Sekolah</label>
           <input type="text" name="kepala_sekolah" class="form-control">
+        </div>
+
+        <div class="mb-4">
+          <label>Logo Sekolah</label>
+          <input type="file" name="logo" class="form-control">
+          <small class="text-muted">Format yang diperbolehkan: jpg, png. Max 2MB.</small>
         </div>
 
         <button type="submit" class="btn btn-success">Simpan</button>
@@ -133,5 +139,3 @@
     </div>
   </div>
 </div>
-
-

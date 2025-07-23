@@ -33,6 +33,7 @@
   <div class="sekolah-index-overlay"></div>
 
   <div class="main-content flex-grow-1 d-flex flex-column">
+    <!-- HEADER -->
     <div class="navbar-dashboard d-flex justify-content-between align-items-center px-4 py-3 bg-dark text-white shadow-sm z-3">
       <button class="btn btn-outline-light me-3" id="toggleSidebar">
         <i class="bi bi-list"></i>
@@ -44,46 +45,59 @@
       </div>
     </div>
 
+    <!-- ISI KONTEN -->
     <div class="flex-grow-1 sekolah-index-content shadow">
+      <!-- Tombol Tambah -->
       <a href="<?= base_url('/admin/banksoal/create') ?>" class="btn btn-primary mb-3">
-        <i class="bi bi-plus-lg"></i> Tambah Bank Soal
+        <i class=""></i> Tambah Bank Soal
       </a>
 
+      <!-- Notifikasi -->
       <?php if (session()->getFlashdata('success')): ?>
         <div class="alert alert-success">
           <?= session()->getFlashdata('success') ?>
         </div>
       <?php endif; ?>
 
-    <div class="table-responsive">
-      <table id="bankTable" class="table table-striped table-bordered">
-        <thead class="table-dark">
-          <tr>
-            <th>No</th>
-            <th>Kode Bank</th>
-            <th>Mata Pelajaran</th>
-            <th>Jumlah Soal</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php $no = 1; foreach ($bank as $b): ?>
+      <!-- Tabel -->
+      <div class="table-responsive">
+        <table id="bankTable" class="table table-striped table-bordered align-middle">
+          <thead class="table-dark text-center">
             <tr>
-              <td><?= $no++ ?></td>
-              <td><?= esc($b['bank_code']) ?></td>
-              <td><?= esc($b['nama_mapel'] ?? '-') ?></td>
-              <td><?= esc($b['jumlah_soal']) ?></td>
-              <td>
-                <a href="<?= base_url('admin/banksoal/edit/' . $b['id_bank']) ?>" class="btn btn-sm btn-warning">Edit</a>
-                <form action="<?= base_url('admin/banksoal/delete/' . $b['id_bank']) ?>" method="post" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus data ini?');">
-                  <?= csrf_field() ?>
-                  <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
-                </form>
-              </td>
+              <th>No</th>
+              <th>Kode Bank</th>
+              <th>Mata Pelajaran</th>
+              <th>Jumlah Soal</th>
+              <th class="text-nowrap">Aksi</th>
             </tr>
-          <?php endforeach ?>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <?php $no = 1; foreach ($bank as $b): ?>
+              <tr>
+                <td class="text-center"><?= $no++ ?></td>
+                <td><?= esc($b['bank_code']) ?></td>
+                <td><?= esc($b['nama_mapel'] ?? '-') ?></td>
+                <td class="text-center"><?= esc($b['jumlah_soal']) ?></td>
+                <td class="text-nowrap text-center">
+                  <!-- Tombol Aksi -->
+                  <a href="<?= base_url('admin/banksoal/edit/' . $b['id_bank']) ?>" class="btn btn-sm btn-warning mb-1">
+                    <i class="bi bi-pencil-square"></i> Edit
+                  </a>
+                  <a href="<?= base_url('admin/soal/' . $b['id_bank']) ?>" class="btn btn-sm btn-info text-white mb-1">
+                    <i class="bi bi-list-task"></i> Lihat Soal
+                  </a>
+                  <form action="<?= base_url('admin/banksoal/delete/' . $b['id_bank']) ?>" method="post" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus bank soal ini?');">
+                    <?= csrf_field() ?>
+                    <button type="submit" class="btn btn-sm btn-danger mb-1">
+                      <i class="bi bi-trash"></i> Hapus
+                    </button>
+                  </form>
+                </td>
+              </tr>
+            <?php endforeach ?>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

@@ -74,6 +74,7 @@
               <th>Alamat</th>
               <th>Kontak</th>
               <th>Kepala Sekolah</th>
+              <th>Logo</th> <!-- ✅ Kolom Logo -->
               <th>Aksi</th>
             </tr>
           </thead>
@@ -88,6 +89,13 @@
                 <td><?= esc($s['alamat']) ?>, <?= esc($s['desa_kelurahan']) ?>, <?= esc($s['kecamatan']) ?>, <?= esc($s['kab_kota']) ?>, <?= esc($s['provinsi']) ?></td>
                 <td><?= esc($s['kontak']) ?><br><?= esc($s['email']) ?></td>
                 <td><?= esc($s['kepala_sekolah']) ?></td>
+                <td>
+                  <?php if (!empty($s['logo'])): ?>
+                    <img src="<?= base_url('uploads/logo/' . $s['logo']) ?>" alt="Logo Sekolah" width="50">
+                  <?php else: ?>
+                    <span class="text-muted">Belum Ada</span>
+                  <?php endif; ?>
+                </td>
                 <td>
                   <a href="<?= base_url('admin/sekolah/edit/' . $s['id']) ?>" class="btn btn-sm btn-warning">Edit</a>
                   <form action="<?= base_url('admin/sekolah/delete/' . $s['id']) ?>" method="post" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus?');">
@@ -115,4 +123,3 @@
     $('#sekolahTable').DataTable();
   });
 </script>
-
